@@ -1,9 +1,9 @@
-import BASE_URL from "./axiosConfig";
-
+import axios from "axios";
+import {base_url} from "./axiosConfig";
 // Lấy tất cả đơn hàng của user
 export const getOrdersByUserId = async (user_id) => {
   try {
-    const response = await BASE_URL.get(`/orders/by-user?user_id=${user_id}`);
+    const response = await axios.get(`${base_url}/orders/by-user?user_id=${user_id}`);
     console.log("Dữ liệu trả về từ API của đơn hàng:", user_id);
     console.log("Dữ liệu trả về từ API của đơn hàng:", response.data);
     return response.data;
@@ -15,7 +15,7 @@ export const getOrdersByUserId = async (user_id) => {
 // Thêm đơn hàng mới
 export const addOrder = async (orderData) => {
   try {
-    const response = await BASE_URL.post("/orders", orderData);
+    const response = await axios.post(`${base_url}/orders`, orderData);
     console.log("Dữ liệu trả về từ API của đơn hàng:", response.data);
     // Kiểm tra nếu response.data là một mảng, trả về phần tử đầu tiên
     return response.data;
@@ -30,7 +30,7 @@ export const addOrder = async (orderData) => {
 // Thêm order item mới
 export const addOrderItem = async (orderItemData) => {
   try {
-    const response = await BASE_URL.post("/order_items", orderItemData);
+    const response = await axios.post(`${base_url}/order_items`, orderItemData);
     return response.data;
   } catch (error) {
     console.error("Lỗi khi thêm order item:", error);
@@ -40,7 +40,7 @@ export const addOrderItem = async (orderItemData) => {
 // Thêm notification mới cho user
 export const addNotification = async (notificationData) => {
   try {
-    const response = await BASE_URL.post("/notification", notificationData);
+    const response = await axios.post(`${base_url}/notification`, notificationData);
     console.log("Dữ liệu trả về từ API của notification:", response.data);
     // Kiểm tra nếu response.data là một mảng, trả về phần tử đầu tiên
     return response.data;
@@ -53,7 +53,7 @@ export const addNotification = async (notificationData) => {
 // Lấy danh sách notification của user
 export const getNotificationsByUserId = async (user_id) => {
   try {
-    const response = await BASE_URL.get(`/notification/by-user?user_id=${user_id}`);
+    const response = await axios.get(`${base_url}/notification/by-user?user_id=${user_id}`);
     return response.data;
   } catch (error) {
     console.error("Lỗi khi lấy notification:", error);
@@ -64,12 +64,12 @@ export const getNotificationsByUserId = async (user_id) => {
 export const selectAddress = async (user_id, selected_id) => {
   try {
     // Lấy tất cả địa chỉ của user
-    const res = await BASE_URL.get(`/address/by-user?user_id=${user_id}`);
+    const res = await axios.get(`${base_url}/address/by-user?user_id=${user_id}`);
     const addresses = res.data;
     // Cập nhật từng địa chỉ: địa chỉ được chọn thì isSelected=true, còn lại false
     console.log("Cập nhật địa chỉ với user_id:", user_id, "và selected_id:", selected_id,addresses._id);
     await Promise.all(addresses.map(addr => {
-      return BASE_URL.put(`/address/${addr._id}`, {
+      return axios.put(`${base_url}/address/${addr._id}`, {
         ...addr,
         isSelected: addr._id === selected_id
       });
@@ -83,7 +83,7 @@ export const selectAddress = async (user_id, selected_id) => {
 // Xóa địa chỉ theo id
 export const deleteAddressById = async (id) => {
   try {
-    const response = await BASE_URL.delete(`/address/${id}`);
+    const response = await axios.delete(`${base_url}/address/${id}`);
     return response.data;
   } catch (error) {
     console.error("Lỗi khi xóa địa chỉ:", error);
@@ -94,7 +94,7 @@ export const deleteAddressById = async (id) => {
 // Cập nhật địa chỉ theo id
 export const updateAddressById = async (id, addressData) => {
   try {
-    const response = await BASE_URL.put(`/address/${id}`, addressData);
+    const response = await axios.put(`${base_url}/address/${id}`, addressData);
     return response.data;
   } catch (error) {
     console.error("Lỗi khi cập nhật địa chỉ:", error);
@@ -104,7 +104,7 @@ export const updateAddressById = async (id, addressData) => {
 // Thêm địa chỉ mới cho user
 export const addAddressForUser = async (addressData) => {
   try {
-    const response = await BASE_URL.post("/address", addressData);
+    const response = await axios.post(`${base_url}/address`, addressData);
     return response.data;
   } catch (error) {
     console.error("Lỗi khi thêm địa chỉ mới:", error);
@@ -114,7 +114,7 @@ export const addAddressForUser = async (addressData) => {
 // Lấy danh sách địa chỉ của user theo user_id
 export const getAddressesByUserId = async (user_id) => {
   try {
-    const response = await BASE_URL.get(`/address/by-user?user_id=${user_id}`);
+    const response = await axios.get(`${base_url}/address/by-user?user_id=${user_id}`);
     // Lọc lại cho chắc chắn đúng user_id
     const addresses = response.data.filter(addr => addr.user_id === user_id);
     if (addresses.length === 0) {
@@ -126,11 +126,12 @@ export const getAddressesByUserId = async (user_id) => {
     return { message: "Không thể lấy danh sách địa chỉ.", addresses: [] };
   }
 };
+import BASE_URL from "./axiosConfig";
 
 // Get all products
 export const getProducts = async () => {
   try {
-    const response = await BASE_URL.get("/products");
+    const response = await axios.get(`${base_url}/products`);
     console.log("Dữ liệu trả về:", response.data);
     return response.data;
   } catch (error) {
@@ -144,7 +145,7 @@ export const getProducts = async () => {
 
 export const getProductById = async (productId) => {
   try {
-    const response = await BASE_URL.get(`/products/${productId}`);
+    const response = await axios.get(`${base_url}/products/${productId}`);
     if (response.data.length === 0) {
       throw new Error("Không tìm thấy sản phẩm với ID đã cho.");
     }
@@ -157,7 +158,7 @@ export const getProductById = async (productId) => {
 // Get categories
 export const getCategories = async () => {
   try {
-    const response = await BASE_URL.get("/categories");
+    const response = await axios.get(`${base_url}/categories`);
     return response.data;
   } catch (error) {
     console.error("Lỗi khi lấy danh mục:", error);
@@ -167,7 +168,7 @@ export const getCategories = async () => {
 // Get reviews for a product
 export const getReviewsByProductId = async (productId) => {
   try {
-    const response = await BASE_URL.get(`/reviews?product_id=${productId}`);
+    const response = await axios.get(`${base_url}/reviews?product_id=${productId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching reviews:", error);
@@ -178,7 +179,7 @@ export const getReviewsByProductId = async (productId) => {
 // Register user
 export const registerUser = async (userData) => {
   try {
-    const response = await BASE_URL.post("/users", userData);
+    const response = await axios.post(`${base_url}/users`, userData);
     return response.data;
   } catch (error) {
     throw error;
@@ -188,7 +189,7 @@ export const registerUser = async (userData) => {
 // Get information of a user
 export const getUserById = async (uid) => {
   try {
-    const response = await BASE_URL.get(`/users/${uid}`);
+    const response = await axios.get(`${base_url}/users/${uid}`);
     return response.data;
   } catch (error) {
     throw error;
@@ -198,7 +199,7 @@ export const getUserById = async (uid) => {
 // Update user information
 export const updateUser = async (uid, userData) => {
   try {
-    const response = await BASE_URL.put(`/users/${uid}`, userData);
+    const response = await axios.put(`${base_url}/users/${uid}`, userData);
     return response.data;
   } catch (error) {
     throw error;
@@ -208,7 +209,7 @@ export const updateUser = async (uid, userData) => {
 // Get cart by user ID
 export const getCartByUserId = async (user_id) => {
   try {
-    const cartResponse = await BASE_URL.get(`/cart/by-user?user_id=${user_id}`);
+    const cartResponse = await axios.get(`${base_url}/cart/by-user?user_id=${user_id}`);
     let cartData = cartResponse.data;
 
     // Lọc các mục có user_id khớp với user_id hiện tại
@@ -217,7 +218,7 @@ export const getCartByUserId = async (user_id) => {
     );
 
     // Gọi API để lấy danh sách sản phẩm
-    const productsResponse = await BASE_URL.get("/products");
+    const productsResponse = await axios.get(`${base_url}/products`);
     const products = productsResponse.data;
 
     // Bổ sung thông tin price, oldPrice, name, image, discount cho từng item
@@ -262,7 +263,7 @@ export const getCartByUserId = async (user_id) => {
 // Add to cart API
 export const addToCartAPI = async (cartData) => {
   try {
-    const response = await BASE_URL.post("/cart", {
+    const response = await axios.post(`${base_url}/cart`, {
       user_id: cartData.user_id,
       product_id: cartData.product_id,
       quantity: cartData.quantity,
@@ -286,7 +287,7 @@ export const addToCartAPI = async (cartData) => {
 // Update cart item API
 export const updateCartItemAPI = async (serverId, cartData) => {
   try {
-    const response = await BASE_URL.put(`/cart/${serverId}`, {
+    const response = await axios.put(`${base_url}/cart/${serverId}`, {
       user_id: cartData.user_id,
       product_id: cartData.product_id,
       quantity: cartData.quantity,
@@ -335,7 +336,7 @@ export const updateCustomerInfo = async (uid, updatedData) => {
 // Add to wishlist API
 export const addToWishlistAPI = async (wishlistData) => {
   try {
-    const response = await BASE_URL.post("/wishlist", {
+    const response = await axios.post(`${base_url}/wishlist`, {
       user_id: wishlistData.user_id,
       product_id: wishlistData.product_id,
       added_at: wishlistData.added_at,
@@ -351,7 +352,7 @@ export const addToWishlistAPI = async (wishlistData) => {
 // Remove from wishlist API
 export const removeFromWishlistAPI = async (wishlistId) => {
   try {
-    const response = await BASE_URL.delete(`/wishlist/${wishlistId}`);
+    const response = await axios.delete(`${base_url}/wishlist/${wishlistId}`);
     return response.data;
   } catch (error) {
    console.log("Dữ liệu trả về từ API:", wishlistId);
@@ -363,7 +364,7 @@ export const removeFromWishlistAPI = async (wishlistId) => {
 // Get wishlist by user ID
 export const getWishlistByUserId = async (user_id) => {
   try {
-    const wishlistResponse = await BASE_URL.get(`/wishlist/by-user?user_id=${user_id}`);
+    const wishlistResponse = await axios.get(`${base_url}/wishlist/by-user?user_id=${user_id}`);
     let wishlistData = wishlistResponse.data;
 
     // Filter items by user_id
@@ -372,7 +373,7 @@ export const getWishlistByUserId = async (user_id) => {
     );
 
     // Fetch products to enrich wishlist data
-    const productsResponse = await BASE_URL.get("/products");
+    const productsResponse = await axios.get(`${base_url}/products`);
     const products = productsResponse.data;
 
     // Enrich wishlist data with product details

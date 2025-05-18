@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     padding: 24,
     paddingBottom: 32,
     minHeight: '80%',
-    maxHeight: '90%',
+    maxHeight: '100%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -2 },
     shadowOpacity: 0.08,
@@ -455,7 +455,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 24,
   },
   resetBtn: {
     backgroundColor: '#f5f5f5',

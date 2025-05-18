@@ -50,7 +50,6 @@ export default function DrawerLayout() {
           <View style={stylesV2.profileSection}>
             <Image style={stylesV2.avatar} source={ggImag} />
             <View style={{ marginLeft: 12 }}>
-              <Text style={stylesV2.name}>Sunie Pham</Text>
               <Text style={stylesV2.email}>{userData.email || 'sunieux@gmail.com'}</Text>
             </View>
           </View>
@@ -63,14 +62,14 @@ export default function DrawerLayout() {
               onPress={() => router.replace("/(drawer)/(tabs)/home")}
             />
             <DrawerItem
-              icon={({ color, size }) => <Feather name="search" size={22} color={color} />}
-              label={() => <Text style={stylesV2.menuLabel}>Discover</Text>}
+              icon={({ color, size }) => <Feather name="bell" size={22} color={color} />}
+              label={() => <Text style={stylesV2.menuLabel}>Notification</Text>}
               style={stylesV2.menuItem}
               onPress={() => router.replace("/(drawer)/(tabs)/notification")} 
             />
             <DrawerItem
               icon={({ color, size }) => <Feather name="shopping-bag" size={22} color={color} />}
-              label={() => <Text style={stylesV2.menuLabel}>My Order</Text>}
+              label={() => <Text style={stylesV2.menuLabel}>My cart</Text>}
               style={stylesV2.menuItem}
               onPress={() => router.replace("/(drawer)/(tabs)/shop")}
             />
@@ -104,19 +103,6 @@ export default function DrawerLayout() {
             />
           </View>
         </DrawerContentScrollView>
-        {/* Bottom Light/Dark Switch & Logout */}
-        <View style={stylesV2.bottomSection}>
-          <View style={stylesV2.themeSwitchContainer}>
-            <TouchableOpacity style={[stylesV2.themeButton, { backgroundColor: '#F6F6F6' }]}> 
-              <Feather name="sun" size={18} color="#000" />
-              <Text style={stylesV2.themeText}>Light</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[stylesV2.themeButton, { backgroundColor: '#fff' }]}> 
-              <Feather name="moon" size={18} color="#A8A8A9" />
-              <Text style={[stylesV2.themeText, { color: '#A8A8A9' }]}>Dark</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
       </View>
     );
   };
@@ -170,7 +156,7 @@ const stylesV2 = StyleSheet.create({
   },
   menuItem: {
     borderRadius: 10,
-    marginHorizontal: 8,
+    marginHorizontal: 10,
     marginVertical: 0,
     paddingVertical: 0,
     paddingHorizontal: 0,
@@ -189,13 +175,13 @@ const stylesV2 = StyleSheet.create({
     fontSize: 15,
     color: '#222',
     fontWeight: '400',
-    marginLeft: -16,
+    marginLeft: 0,
   },
   menuLabelActive: {
     fontSize: 15,
     color: '#222',
     fontWeight: 'bold',
-    marginLeft: -16,
+    marginLeft: 0,
   },
   otherTitle: {
     fontSize: 12,

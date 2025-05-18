@@ -8,7 +8,7 @@ import React, {
 import { addToCartAPI, getCartByUserId, updateCartItemAPI } from "@/api/api";
 import { useAuth } from "@/context/contextAuth";
 import axios from "axios";
-
+import { base_url } from "@/api/axiosConfig";
 // Định nghĩa interface cho CartItem
 interface CartItem {
   _id: string;
@@ -46,7 +46,7 @@ const generateUniqueId = () => {
 // Hàm xóa mục trên server
 const deleteCartItemAPI = async (id: string) => {
   try {
-    await axios.delete(`http://localhost:5000/api/cart/${id}`);
+    await axios.delete(`${base_url}/cart/${id}`);
     console.log(`Cart item deleted successfully, id: ${id}`);
   } catch (error) {
     console.error(`Error deleting cart item, id: ${id}`, error);

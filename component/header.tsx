@@ -48,17 +48,8 @@ const Header = () => {
       </View>
       <>
         <TouchableOpacity style={styles.containerSearch} onPress={() => {router.push("/(screen)/searchScreen")}}>
-          <Feather name="search" size={15} color="#BBBBBB" />
-          <TextInput
-            placeholder="Search any Product..."
-            placeholderTextColor="#BBBBBB"
-            style={styles.textInputDesign}
-            value={text}
-            onChangeText={setText}
-          />
-          <TouchableOpacity >
-            <Feather name="mic" size={15} color="#BBBBBB" />
-          </TouchableOpacity>
+          <Feather name="search" size={18} color="#BBBBBB" style={{ marginRight: 8 }} />
+          <Text style={styles.searchText}>Tìm kiếm sản phẩm...</Text>
         </TouchableOpacity>
         <View style={styles.containerFeather}>
           <Text style={{ fontWeight: "bold", fontSize: 18 }}>ALL Featured</Text>
@@ -110,12 +101,25 @@ const styles = StyleSheet.create({
   containerSearch: {
     height: 40,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 15,
     marginHorizontal: 17,
-    backgroundColor: "#ffffff",
-    borderRadius: 6,
+    backgroundColor: "#F3F4F6", // màu nền nhẹ nhàng hơn
+    borderRadius: 8,
+    marginTop: 10,
+    marginBottom: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.07,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  searchText: {
+    color: '#A0A0A0',
+    fontSize: 15,
+    marginLeft: 2,
+    fontWeight: '400',
+    letterSpacing: 0.2,
   },
   containerFeather: {
     flexDirection: "row",
