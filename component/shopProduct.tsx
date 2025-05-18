@@ -44,7 +44,7 @@ const ProductItem: React.FC<ProductProps> = ({
     }
   };
 
-  const renderRightActions = (progress: any) => {
+  const renderRightActions = (progress: any) => { 
     const trans = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [64, 0],
